@@ -17,6 +17,17 @@ on:
         required: true
         type: string
         default: 'NONE'
+      linter-commands:
+        type: string
+        description: 'The linters to run'
+        required: true
+        default: '["ruff", "mypy"]'
+      linter-folders:
+        type: string
+        description: 'The folders to run the linters in.'
+        required: true
+        default: '["src", "tests"]'
+
 
 jobs:
   prepare-project:
@@ -28,6 +39,21 @@ jobs:
     strategy:
       matrix:
         python-version: ${{ fromJSON(inputs.python-versions) }}
+  linting:
+    name: lint the python code
+    needs: prepare-project
+    uses: ./.github/workflows/lint-python.yml
+    with:
+      test-suite: ${{ inputs.test-suite }}
+      python-version: ${{ matrix.python-version }}
+      linter-command: ${{ matrix.linter-command }}
+      linter-folder: ${{ matrix.linter-folder }}
+    if: ${{ inputs.test-suite != 'NONE' }}
+    strategy:
+      matrix:
+        python-version: ${{ fromJSON(inputs.python-versions) }}
+        linter-command: ${{ fromJSON(inputs.linter-commands) }}
+        linter-folder: ${{ fromJSON(inputs.linter-folders) }}
   test:
     name: run tests
     needs: prepare-project

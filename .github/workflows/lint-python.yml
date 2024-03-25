@@ -1,0 +1,29 @@
+---
+name: test python project
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        type: string
+        required: true
+        description: "The version of Python to use."
+      linter-command:
+        type: string
+        required: true
+        description: "The command to run the linter."
+      linter-folder:
+        type: string
+        required: true
+        description: "The folder to run the linter in."
+
+jobs:
+  prepare-python-poetry:
+    name: pytest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: |
+          echo "Running tests"
+          echo "Python version: ${{ inputs.python-version }}"
+          echo "Linter command: ${{ inputs.linter-command }}"
+          echo "Linter folder: ${{ inputs.linter-folder }}"
