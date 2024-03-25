@@ -26,7 +26,7 @@ on:
         type: string
         description: 'The linters to run'
         required: false
-        default: '["ruff", "mypy"]'
+        default: '["command": "ruff", "command": "mypy"]'
       linter-folders:
         type: string
         description: 'The folders to run the linters in.'
@@ -49,7 +49,7 @@ jobs:
     needs: prepare-project
     uses: ./.github/workflows/lint-python.yml
     with:
-      linter-command: ${{ matrix.linter-command }}
+      linter-command: ${{ matrix.linter-command.command }}
       linter-folder: ${{ matrix.linter-folder }}
       python-version: ${{ inputs.main-python-version }}
     if: ${{ inputs.test-suite != 'NONE' }}
