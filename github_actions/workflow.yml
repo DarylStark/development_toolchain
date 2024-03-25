@@ -1,0 +1,17 @@
+---
+name: default development workflow
+on:
+  workflow_call:
+    inputs:
+      project-type:
+        description: 'The type of project. Can be "PYTHON_POETRY" or "PYTHON_SETUP_PY".'
+        required: true
+        type: string
+
+jobs:
+  prepare:
+    name: prepare project
+    runs-on: ubuntu-latest
+    uses: ./prepare.yml
+    with:
+      project-type: ${{ inputs.project-type }}

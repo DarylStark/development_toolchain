@@ -1,0 +1,19 @@
+---
+name: prepare project
+on:
+  workflow_call:
+    inputs:
+      project-type:
+        description: 'The type of project. Can be "PYTHON_POETRY" or "PYTHON_SETUP_PY".'
+        required: true
+        type: string
+
+jobs:
+  prepare-python-poetry:
+    name: prepare Python project (Poetry)
+    uses: ./python-poetry/prepare.yml
+    if: ${{ inputs.project-type == 'PYTHON_POETRY' }}
+  prepare-python-setup-py:
+    name: prepare Python project (Setup.py)
+    uses: ./python-setup-py/prepare.yml
+    if: ${{ inputs.project-type == 'PYTHON_SETUP_PY' }}
