@@ -14,4 +14,4 @@ jobs:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Run pytest
-        run: pytest
+        run: poetry run pytest
