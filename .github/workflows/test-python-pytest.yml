@@ -30,6 +30,7 @@ jobs:
       - name: testing 3
         run: ls -alF .venv/lib/python*/site-packages
       - name: Activate VENV
+        shell: bash
         run: |
           source .venv/bin/activate
           echo "PATH=$PATH" >> $GITHUB_ENV
@@ -38,6 +39,6 @@ jobs:
       - name: Check pip
         run: pip --version
       - name: testing 4
-        run: echo $GITHBU_ENV
+        run: echo $GITHUB_ENV
       - name: Run pytest
         run: python -m pytest
