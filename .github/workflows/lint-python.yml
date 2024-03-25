@@ -17,8 +17,7 @@ on:
         description: "The folder to run the linter in."
 
 jobs:
-  prepare-python-poetry:
-    name: pytest
+  lint-python-code:
     runs-on: ubuntu-latest
     steps:
       - name: Test
