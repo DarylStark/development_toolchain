@@ -14,31 +14,22 @@ jobs:
     name: run pytest
     runs-on: ubuntu-latest
     steps:
-      - name: testing 1
-        run: ls -alF
-      - name: testing 2
-        run: env
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ inputs.python_version }}
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
+      - name: Setup a local virtual environment
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
       - name: Retrieve the cache for the workflow
         uses: actions/cache@v4
         with:
           path: ./.venv
           key: venv_${{ github.sha }}
-      - name: testing 3
-        run: ls -alF .venv/lib/python*/site-packages
-      - name: Activate VENV
-        shell: bash
-        run: |
-          source .venv/bin/activate
-          echo "PATH=$PATH" >> $GITHUB_ENV
-      - name: Check python version
-        run: which python
-      - name: Check pip
-        run: pip --version
-      - name: testing 4
-        run: echo $GITHUB_ENV
       - name: Run pytest
-        run: python -m pytest
+        run: poetry run pytest
