@@ -8,6 +8,10 @@ jobs:
     name: run pytest
     runs-on: ubuntu-latest
     steps:
+      - name: testing
+        run: ls -alF
+      - name: testing2
+        run: env
       - name: Retrieve the cache for the workflow
         uses: actions/cache@v4
         with:
