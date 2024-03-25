@@ -30,7 +30,5 @@ jobs:
         with:
           path: ./.venv
           key: venv_${{ github.sha }}
-      - name: test
-        uses: ./.github/workflows/test.yaml
       - name: Run pytest
         run: .venv/bin/python -m pytest
