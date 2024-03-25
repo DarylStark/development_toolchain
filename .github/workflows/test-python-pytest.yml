@@ -1,0 +1,12 @@
+---
+name: prepare project (Python, using Setup.py)
+on:
+  workflow_call:
+
+jobs:
+  prepare:
+    name: prepare Python project (Setup.py)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run pytest
+        run: pytest

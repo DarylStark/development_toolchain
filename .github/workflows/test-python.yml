@@ -1,0 +1,15 @@
+---
+name: test python project
+on:
+  workflow_call:
+    inputs:
+      test-suite:
+        description: 'The test-suite that is being used. Can be "PYTEST".'
+        required: true
+        type: string
+
+jobs:
+  prepare-python-poetry:
+    name: pytest
+    uses: ./.github/workflows/test-python-pytest.yml
+    if: ${{ inputs.test-suite == 'PYTEST' }}

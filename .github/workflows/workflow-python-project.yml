@@ -7,6 +7,11 @@ on:
         description: 'The type of project. Can be "PYTHON_POETRY" or "PYTHON_SETUP_PY".'
         required: true
         type: string
+      test-suite:
+        description: 'The test-suite that is being used. Can be "NONE" or "PYTEST".'
+        required: true
+        type: string
+        default: 'NONE'
 
 jobs:
   prepare-project:
@@ -14,3 +19,10 @@ jobs:
     uses: ./.github/workflows/prepare-python.yml
     with:
       project-type: ${{ inputs.project-type }}
+  test:
+    name: run tests
+    needs: prepare-project
+    uses: ./.github/workflows/test-python.yml
+    with:
+      test-suite: ${{ inputs.test-suite }}
+    if: ${{ inputs.test-suite != 'NONE' }}
