@@ -19,9 +19,11 @@ jobs:
           key: venv_${{ github.sha }}
       - name: testing 3
         run: ls -alF .venv/lib/python*/site-packages
-      - name: Activate Python environment
-        run: source .venv/bin/activate
+      - name: Setup virtualenv
+        uses: cdqag/setup-virtualenv@v1    
       - name: Check python version
         run: which python
+      - name: Check pip
+        run: pip --version
       - name: Run pytest
         run: python -m pytest
