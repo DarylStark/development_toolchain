@@ -26,7 +26,7 @@ on:
         type: string
         description: 'The linters to run'
         required: false
-        default: '["ruff", "mypy"]'
+        default: '["ruff check", "mypy"]'
       linter-folders:
         type: string
         description: 'The folders to run the linters in.'
