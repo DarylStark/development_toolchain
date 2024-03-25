@@ -11,6 +11,6 @@ on:
 jobs:
   prepare:
     name: prepare project
-    uses: ./.github/workflows/_prepare.yml
+    uses: ./.github/workflows/prepare.yml
     with:
       project-type: ${{ inputs.project-type }}
