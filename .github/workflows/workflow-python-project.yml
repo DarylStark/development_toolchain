@@ -3,29 +3,29 @@ name: workflow for python project
 on:
   workflow_call:
     inputs:
-      python-versions:
-        type: string
-        description: 'List of Python versions to test against in a comma separated list. Example: ["3.9","3.10"]'
-        required: true
-        default: '["3.8","3.9","3.10","3.11","3.12"]'
       project-type:
         description: 'The type of project. Can be "PYTHON_POETRY".'
         required: true
         type: string
+      python-versions:
+        type: string
+        description: 'List of Python versions to test against in a comma separated list. Example: ["3.9","3.10"]'
+        required: false
+        default: '["3.8","3.9","3.10","3.11","3.12"]'
       test-suite:
         description: 'The test-suite that is being used. Can be "NONE" or "PYTEST".'
-        required: true
+        required: false
         type: string
         default: 'NONE'
       linter-commands:
         type: string
         description: 'The linters to run'
-        required: true
+        required: false
         default: '["ruff", "mypy"]'
       linter-folders:
         type: string
         description: 'The folders to run the linters in.'
-        required: true
+        required: false
         default: '["src", "tests"]'
 
 
