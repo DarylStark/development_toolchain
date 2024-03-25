@@ -1,17 +1,17 @@
 ---
-name: prepare project (Python, using Poetry)
+name: prepare project (Python, using Setup.py)
 on:
   workflow_call:
     inputs:
       python_version:
-        type: str
+        type: string
         default: "3.8"
         required: false
         description: "The version of Python to use."
 
 jobs:
-  build:
-    name: prepare Python project (Poetry)
+  prepare:
+    name: prepare Python project (Setup.py)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,9 +20,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ inputs.python_version }}
-      - name: Install Poetry
+      - name: Install Pip
         run: |
-          pip install poetry
+          python -m pip install --upgrade pip
       - name: Install dependencies
         run: |
-          poetry install
+          pip install -r requirements.txt
