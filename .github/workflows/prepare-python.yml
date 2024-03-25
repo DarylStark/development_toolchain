@@ -1,5 +1,5 @@
 ---
-name: prepare project
+name: prepare python project
 on:
   workflow_call:
     inputs:
