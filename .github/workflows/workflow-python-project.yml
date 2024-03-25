@@ -5,9 +5,9 @@ on:
     inputs:
       python-versions:
         type: string
-        description: 'List of Python versions to test against in a comma separated list.'
+        description: 'List of Python versions to test against in a comma separated list. Example: ["3.9","3.10"]'
         required: true
-        default: '3.8,3.9,3.10,3.11,3.12'
+        default: '["3.8","3.9","3.10","3.11","3.12"]'
       project-type:
         description: 'The type of project. Can be "PYTHON_POETRY" or "PYTHON_SETUP_PY".'
         required: true
