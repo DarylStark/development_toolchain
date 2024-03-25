@@ -51,3 +51,4 @@ jobs:
           echo "Python version: ${{ inputs.python-version }}"
           echo "Linter command: ${{ inputs.linter-command }}"
           echo "Linter folder: ${{ inputs.linter-folder }}"
+          echo "Set-up: ${{ inputs.set-up-environment }}"
