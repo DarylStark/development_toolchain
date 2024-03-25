@@ -5,8 +5,7 @@ on:
     inputs:
       python-version:
         type: string
-        default: "3.8"
-        required: false
+        required: true
         description: "The version of Python to use."
       test-suite:
         description: 'The test-suite that is being used. Can be "PYTEST".'

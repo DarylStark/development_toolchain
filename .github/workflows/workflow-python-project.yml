@@ -6,7 +6,7 @@ on:
       python-version:
         type: string
         default: "3.8"
-        required: false
+        required: true
         description: "The version of Python to use."
       project-type:
         description: 'The type of project. Can be "PYTHON_POETRY" or "PYTHON_SETUP_PY".'
