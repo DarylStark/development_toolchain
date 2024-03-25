@@ -19,9 +19,3 @@ jobs:
     with:
       python-version: ${{ inputs.python-version }}
     if: ${{ inputs.project-type == 'PYTHON_POETRY' }}
-  prepare-python-setup-py:
-    name: prepare Python project (Setup.py)
-    uses: ./.github/workflows/prepare-python-setup-py.yml
-    if: ${{ inputs.project-type == 'PYTHON_SETUP_PY' }}
-    with:
-      python-version: ${{ inputs.python-version }}
