@@ -3,11 +3,11 @@ name: workflow for python project
 on:
   workflow_call:
     inputs:
-      python-version:
+      python-versions:
         type: string
-        default: "3.8"
+        description: 'List of Python versions to test against in a comma separated list.'
         required: true
-        description: "The version of Python to use."
+        default: '3.8,3.9,3.10,3.11,3.12'
       project-type:
         description: 'The type of project. Can be "PYTHON_POETRY" or "PYTHON_SETUP_PY".'
         required: true
@@ -27,7 +27,7 @@ jobs:
       python-version: ${{ matrix.python-version }}
     strategy:
       matrix:
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        python-version: ${{ fromJSON(inputs.python-versions) }}
   test:
     name: run tests
     needs: prepare-project
@@ -35,7 +35,7 @@ jobs:
     with:
       test-suite: ${{ inputs.test-suite }}
       python-version: ${{ matrix.python-version }}
+    if: ${{ inputs.test-suite != 'NONE' }}
     strategy:
       matrix:
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
-    if: ${{ inputs.test-suite != 'NONE' }}
+        python-version: ${{ fromJSON(inputs.python-versions) }}
