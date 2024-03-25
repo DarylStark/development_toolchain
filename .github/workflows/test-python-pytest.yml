@@ -32,7 +32,7 @@ jobs:
       - name: Activate VENV
         run: |
           source .venv/bin/activate
-          echo "PATH=$PATH" >> $GIBHUB_ENV
+          echo "PATH=$PATH" >> $GITHUB_ENV
       - name: Check python version
         run: which python
       - name: Check pip
