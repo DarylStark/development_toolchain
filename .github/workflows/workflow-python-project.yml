@@ -12,6 +12,11 @@ on:
         description: 'List of Python versions to test against in a comma separated list. Example: ["3.9","3.10"]'
         required: false
         default: '["3.8","3.9","3.10","3.11","3.12"]'
+      main-python-version:
+        type: string
+        description: 'The main Python version to use. This version is used for linting and deployment.'
+        required: false
+        default: '3.12'
       test-suite:
         description: 'The test-suite that is being used. Can be "NONE" or "PYTEST".'
         required: false
@@ -44,13 +49,12 @@ jobs:
     needs: prepare-project
     uses: ./.github/workflows/lint-python.yml
     with:
-      python-version: ${{ matrix.python-version }}
       linter-command: ${{ matrix.linter-command }}
       linter-folder: ${{ matrix.linter-folder }}
+      python-version: ${{ inputs.main-python-version }}
     if: ${{ inputs.test-suite != 'NONE' }}
     strategy:
       matrix:
-        python-version: ${{ fromJSON(inputs.python-versions) }}
         linter-command: ${{ fromJSON(inputs.linter-commands) }}
         linter-folder: ${{ fromJSON(inputs.linter-folders) }}
   test:
