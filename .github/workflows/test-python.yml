@@ -19,4 +19,3 @@ jobs:
     if: ${{ inputs.test-suite == 'PYTEST' }}
     with:
       python-version: ${{ inputs.python-version }}
-
