@@ -31,9 +31,12 @@ jobs:
           path: ./.venv
           key: venv_${{ github.sha }}
       - name: Active venv
-        run: source .venv/bin/activate
+        run: |
+          source .venv/bin/activate
+          echo $PATH
       - name: venv test
         run: |
+          echo $PATH
           which python
           pip --version
       - name: Run pytest
