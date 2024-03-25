@@ -19,7 +19,7 @@ on:
         type: boolean
         required: false
         description: "Whether to set up the Python environment."
-        default: true
+        default: false
 
 jobs:
   lint-python-code:
