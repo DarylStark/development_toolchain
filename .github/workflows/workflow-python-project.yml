@@ -24,12 +24,18 @@ jobs:
     uses: ./.github/workflows/prepare-python.yml
     with:
       project-type: ${{ inputs.project-type }}
-      python-version: ${{ inputs.python-version }}
+      python-version: ${{ matrix.python-version }}
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
   test:
     name: run tests
     needs: prepare-project
     uses: ./.github/workflows/test-python.yml
     with:
       test-suite: ${{ inputs.test-suite }}
-      python-version: ${{ inputs.python-version }}
+      python-version: ${{ matrix.python-version }}
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
     if: ${{ inputs.test-suite != 'NONE' }}
