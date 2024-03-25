@@ -49,7 +49,7 @@ jobs:
     needs: prepare-project
     uses: ./.github/workflows/lint-python.yml
     with:
-      linter-command: ${{ matrix.linter-command.command }}
+      linter-command: ${{ matrix.linter-command }}
       linter-folder: ${{ matrix.linter-folder }}
       python-version: ${{ inputs.main-python-version }}
     if: ${{ inputs.test-suite != 'NONE' }}
