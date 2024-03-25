@@ -47,8 +47,4 @@ jobs:
         if: ${{ inputs.set-up-environment }}
       - name: Test
         run: |
-          echo "Running tests"
-          echo "Python version: ${{ inputs.python-version }}"
-          echo "Linter command: ${{ inputs.linter-command }}"
-          echo "Linter folder: ${{ inputs.linter-folder }}"
-          echo "Set-up: ${{ inputs.set-up-environment }}"
+          ${{ inputs.linter-command }} ${{ inputs.linter-folder }}"
