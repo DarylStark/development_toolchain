@@ -8,15 +8,17 @@ jobs:
     name: run pytest
     runs-on: ubuntu-latest
     steps:
-      - name: testing
+      - name: testing 1
         run: ls -alF
-      - name: testing2
+      - name: testing 2
         run: env
       - name: Retrieve the cache for the workflow
         uses: actions/cache@v4
         with:
           path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+          key: venv-$GITHUB_SHA
+      - name: testing 3
+        run: ls -alF
       - name: Activate Python environment
         run: source .venv/bin/activate
       - name: Run pytest
