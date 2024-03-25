@@ -33,4 +33,4 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install dependencies
         run: |
-          poetry install
+          poetry install --with dev

@@ -1,11 +1,11 @@
 ---
-name: prepare project (Python, using Setup.py)
+name: run tests (pytest)
 on:
   workflow_call:
 
 jobs:
   prepare:
-    name: prepare Python project (Setup.py)
+    name: run pytest
     runs-on: ubuntu-latest
     steps:
       - name: Retrieve the cache for the workflow
