@@ -16,7 +16,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ./.venv
-          key: venv_${{ env.GITHUB_SHA }}
+          key: venv_${{ github.sha }}
       - name: testing 3
         run: ls -alF
       - name: Activate Python environment
