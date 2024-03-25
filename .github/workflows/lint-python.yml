@@ -15,11 +15,36 @@ on:
         type: string
         required: true
         description: "The folder to run the linter in."
+      set-up-environment:
+        type: boolean
+        required: false
+        description: "Whether to set up the Python environment."
+        default: true
 
 jobs:
   lint-python-code:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+          update-environment: False
+        if: ${{ inputs.set-up-environment }}
+      - name: Retrieve the cache for the workflow
+        uses: actions/cache@v4
+        with:
+          path: ./.venv
+          key: venv_${{ github.sha }}_${{ inputs.python-version }}
+        if: ${{ inputs.set-up-environment }}
+      - name: Active venv
+        run: |
+          source .venv/bin/activate
+          echo "PATH=$PATH" >> $GITHUB_ENV
+          echo $PATH
+        if: ${{ inputs.set-up-environment }}
       - name: Test
         run: |
           echo "Running tests"
