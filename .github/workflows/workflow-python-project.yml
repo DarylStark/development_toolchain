@@ -31,4 +31,5 @@ jobs:
     uses: ./.github/workflows/test-python.yml
     with:
       test-suite: ${{ inputs.test-suite }}
+      python-version: ${{ inputs.python-version }}
     if: ${{ inputs.test-suite != 'NONE' }}
