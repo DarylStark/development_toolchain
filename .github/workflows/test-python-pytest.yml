@@ -29,13 +29,15 @@ jobs:
           key: venv_${{ github.sha }}
       - name: testing 3
         run: ls -alF .venv/lib/python*/site-packages
-      # - name: Setup virtualenv
-      #   uses: cdqag/setup-virtualenv@v1
-      - name: Activate venv
-        run: source .venv/bin/activate
+      - name: Activate VENV
+        run: |
+          source .venv/bin/activate
+          echo "PATH=$PATH" >> $GIBHUB_ENV
       - name: Check python version
         run: which python
       - name: Check pip
         run: pip --version
+      - name: testing 4
+        run: echo $GITHBU_ENV
       - name: Run pytest
         run: python -m pytest
