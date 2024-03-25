@@ -3,6 +3,11 @@ name: workflow for python project
 on:
   workflow_call:
     inputs:
+      python-version:
+        type: string
+        default: "3.8"
+        required: false
+        description: "The version of Python to use."
       project-type:
         description: 'The type of project. Can be "PYTHON_POETRY" or "PYTHON_SETUP_PY".'
         required: true
@@ -19,6 +24,7 @@ jobs:
     uses: ./.github/workflows/prepare-python.yml
     with:
       project-type: ${{ inputs.project-type }}
+      python-version: ${{ inputs.python-version }}
   test:
     name: run tests
     needs: prepare-project
