@@ -47,4 +47,4 @@ jobs:
         if: ${{ inputs.set-up-environment }}
       - name: Test
         run: |
-          ${{ inputs.linter-command }} ${{ inputs.linter-folder }}"
+          ${{ inputs.linter-command }} ${{ inputs.linter-folder }}
