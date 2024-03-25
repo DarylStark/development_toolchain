@@ -1,5 +1,5 @@
 ---
-name: default development workflow
+name: workflow for python project
 on:
   workflow_call:
     inputs:
@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  prepare:
+  prepare-project:
     name: prepare project
     uses: ./.github/workflows/prepare.yml
     with:
