@@ -33,7 +33,7 @@ jobs:
       - name: Active venv
         run: |
           source .venv/bin/activate
-          echo $PATH
+          echo "PATH=$PATH" >> $GITHUB_ENV
       - name: venv test
         run: |
           echo $PATH
