@@ -99,7 +99,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: dev  # TODO: Make this the real branch
+          ref: ${{ github.ref }}  # TODO: Make this the real branch
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
