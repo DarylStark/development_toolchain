@@ -15,6 +15,11 @@ on:
         default: '3.12'
 
 jobs:
+  debug:
+    name: debug
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github }}
   setup:
     name: Project setup (Python ${{ matrix.python-version }})
     uses: ./.github/workflows/python-setup.yml
@@ -94,7 +99,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: dev  # TODO: Make this the real branch
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
