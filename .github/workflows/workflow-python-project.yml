@@ -32,6 +32,11 @@ on:
         description: 'The folders to run the linters in.'
         required: false
         default: '["src", "tests"]'
+      bumpver-to-final:
+        type: boolean
+        description: 'If the version should be bumped to `final`. Uses `bumpver`.'
+        required: false
+        default: false
 
 
 jobs:
@@ -68,3 +73,9 @@ jobs:
     strategy:
       matrix:
         python-version: ${{ fromJSON(inputs.python-versions) }}
+  bump_version:
+    name: bump version
+    runs-on: ubuntu-latest
+    needs: [test, linting]
+    steps:
+      - run: echo ${{ inputs.bumpver-to-final }}
