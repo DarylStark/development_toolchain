@@ -33,66 +33,25 @@ jobs:
     strategy:
       matrix:
         python-version: ${{ fromJSON(inputs.python-versions) }}
-  # lint:
-  #   name: Lint project (${{ matrix.folder }})
-  #   needs: setup
-  #   uses: ./.github/workflows/python-lint.yml
-  #   with:
-  #     python-version: ${{ inputs.main-python-version }}
-  #     folder: ${{ matrix.folder}}
-  #   strategy:
-  #     matrix:
-  #       folder:
-  #         - src
-  #         - tests
-  # test:
-  #   name: run tests
-  #   needs: setup
-  #   uses: ./.github/workflows/python-test-pytest.yml
-  #   with:
-  #     python-version: ${{ matrix.python-version }}
-  #   strategy:
-  #     matrix:
-  #       python-version: ${{ fromJSON(inputs.python-versions) }}
   lint:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Setup"
+    name: Lint project (${{ matrix.folder }})
+    needs: setup
+    uses: ./.github/workflows/python-lint.yml
+    with:
+      python-version: ${{ inputs.main-python-version }}
+      folder: ${{ matrix.folder}}
+    strategy:
+      matrix:
+        folder:
+          - src
+          - tests
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Setup"
-  create-prod-version:
-    name: Create production version
-    needs:
-      - setup
-      - lint
-      - test
-    if: ${{ inputs.deploy }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ inputs.main-python-version }}
-          update-environment: False
-      - name: Retrieve the cache for the workflow
-        uses: actions/cache@v4
-        with:
-          path: ./.venv
-          key: venv_${{ github.sha }}_${{ inputs.main-python-version }}
-      - name: Active venv
-        run: |
-          source .venv/bin/activate
-          echo "PATH=$PATH" >> $GITHUB_ENV
-          echo $PATH
-      - name: Configure Git
-        run: |
-          git config --global user.email "github-action@github.com"
-          git config --global user.name "GitHub Actions"
-      - run: bumpver update --tag final --no-fetch --tag-commit
-      - name: Push changes
-        run: |
-          git push --follow-tags
+    name: run tests
+    needs: setup
+    uses: ./.github/workflows/python-test-pytest.yml
+    with:
+      python-version: ${{ matrix.python-version }}
+    strategy:
+      matrix:
+        python-version: ${{ fromJSON(inputs.python-versions) }}
+
