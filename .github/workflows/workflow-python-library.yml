@@ -18,6 +18,11 @@ on:
         description: 'Whether to bump the version to a final version.'
         required: false
         default: false
+      deploy:
+        type: boolean
+        description: 'Whether we should deploy the project.'
+        required: false
+        default: false
 
 jobs:
   setup:
@@ -62,7 +67,7 @@ jobs:
   deploy:
     name: Deploy project
     needs: bumpver-to-final
-    if: always()
+    if: ${{ inputs.deploy }}
     runs-on: ubuntu-latest
     steps:
       - run: echo test
