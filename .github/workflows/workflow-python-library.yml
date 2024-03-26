@@ -1,0 +1,46 @@
+---
+name: Python library
+on:
+  workflow_call:
+    inputs:
+      python-versions:
+        type: string
+        description: 'List of Python versions to test against in a comma separated list. Example: ["3.9","3.10"]'
+        required: false
+        default: '["3.8","3.9","3.10","3.11","3.12"]'
+      main-python-version:
+        type: string
+        description: 'The main Python version to use. This version is used for linting and deployment.'
+        required: false
+        default: '3.12'
+
+jobs:
+  project-setup:
+    name: Project setup (Python ${{ matrix.python-version }})
+    uses: ./.github/workflows/python-setup.yml
+    with:
+      python-version: ${{ matrix.python-version }}
+    strategy:
+      matrix:
+        python-version: ${{ fromJSON(inputs.python-versions) }}
+  linting:
+    name: Lint project (${{ matrix.folder }})
+    needs: project-setup
+    uses: ./.github/workflows/python-lint.yml
+    with:
+      python-version: ${{ inputs.main-python-version }}
+      folder: ${{ matrix.folder}}
+    strategy:
+      matrix:
+        folder:
+          - src
+          - tests
+  test:
+    name: run tests
+    needs: project-setup
+    uses: ./.github/workflows/python-test-pytest.yml
+    with:
+      python-version: ${{ matrix.python-version }}
+    strategy:
+      matrix:
+        python-version: ${{ fromJSON(inputs.python-versions) }}

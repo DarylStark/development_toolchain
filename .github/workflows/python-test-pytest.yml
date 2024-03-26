@@ -1,5 +1,5 @@
 ---
-name: prepare project (Python, using Poetry)
+name: run tests (pytest)
 on:
   workflow_call:
     inputs:
@@ -9,8 +9,8 @@ on:
         description: "The version of Python to use."
 
 jobs:
-  build:
-    name: prepare Python project (Poetry)
+  prepare:
+    name: run pytest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,17 +20,15 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
           update-environment: False
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
-      - name: Setup a local virtual environment
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-      - uses: actions/cache@v4
-        name: Define a cache for the virtual environment based on the dependencies lock file
+      - name: Retrieve the cache for the workflow
+        uses: actions/cache@v4
         with:
           path: ./.venv
           key: venv_${{ github.sha }}_${{ inputs.python-version }}
-      - name: Install dependencies
+      - name: Active venv
         run: |
-          poetry install --with dev
+          source .venv/bin/activate
+          echo "PATH=$PATH" >> $GITHUB_ENV
+          echo $PATH
+      - name: Run `pytest`
+        run: pytest
