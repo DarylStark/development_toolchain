@@ -94,7 +94,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: main
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
