@@ -9,8 +9,8 @@ on:
         description: "The version of Python to use."
 
 jobs:
-  build:
-    name: prepare Python project (Poetry)
+  setup:
+    name: Set-up Python project (Poetry)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

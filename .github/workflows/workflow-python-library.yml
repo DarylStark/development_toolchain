@@ -15,7 +15,7 @@ on:
         default: '3.12'
 
 jobs:
-  project-setup:
+  setup:
     name: Project setup (Python ${{ matrix.python-version }})
     uses: ./.github/workflows/python-setup.yml
     with:
@@ -23,9 +23,9 @@ jobs:
     strategy:
       matrix:
         python-version: ${{ fromJSON(inputs.python-versions) }}
-  linting:
+  lint:
     name: Lint project (${{ matrix.folder }})
-    needs: project-setup
+    needs: setup
     uses: ./.github/workflows/python-lint.yml
     with:
       python-version: ${{ inputs.main-python-version }}
@@ -37,7 +37,7 @@ jobs:
           - tests
   test:
     name: run tests
-    needs: project-setup
+    needs: setup
     uses: ./.github/workflows/python-test-pytest.yml
     with:
       python-version: ${{ matrix.python-version }}

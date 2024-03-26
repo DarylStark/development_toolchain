@@ -9,7 +9,7 @@ on:
         description: "The version of Python to use."
 
 jobs:
-  prepare:
+  test:
     name: run pytest
     runs-on: ubuntu-latest
     steps:
