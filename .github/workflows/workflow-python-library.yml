@@ -13,16 +13,6 @@ on:
         description: 'The main Python version to use. This version is used for linting and deployment.'
         required: false
         default: '3.12'
-      bumpver-to-final:
-        type: boolean
-        description: 'Whether to bump the version to a final version.'
-        required: false
-        default: false
-      deploy:
-        type: boolean
-        description: 'Whether we should deploy the project.'
-        required: false
-        default: false
 
 jobs:
   setup:
@@ -68,7 +58,6 @@ jobs:
       - setup
       - lint
       - test
-    if: ${{ inputs.deploy }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -96,3 +85,28 @@ jobs:
       - name: Push changes
         run: |
           git push --follow-tags
+  deploy:
+    name: Deploy project
+    needs:
+      - create-prod-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.main-python-version }}
+          update-environment: False
+      - name: Retrieve the cache for the workflow
+        uses: actions/cache@v4
+        with:
+          path: ./.venv
+          key: venv_${{ github.sha }}_${{ inputs.main-python-version }}
+      - name: Active venv
+        run: |
+          source .venv/bin/activate
+          echo "PATH=$PATH" >> $GITHUB_ENV
+          echo $PATH
+      - name: Get version
+        run: bumpver show --no-fetch
