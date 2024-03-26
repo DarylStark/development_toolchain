@@ -67,7 +67,7 @@ jobs:
   deploy:
     name: Deploy project
     needs: bumpver-to-final
-    if: ${{ inputs.deploy }}
+    if: ${{ inputs.deploy }} and always()
     runs-on: ubuntu-latest
     steps:
       - run: echo test
