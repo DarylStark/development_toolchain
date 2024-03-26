@@ -93,3 +93,6 @@ jobs:
           git config --global user.email "github-action@github.com"
           git config --global user.name "GitHub Actions"
       - run: bumpver update --tag final --no-fetch --tag-commit
+      - name: Push changes
+        run: |
+          git push --follow-tags
