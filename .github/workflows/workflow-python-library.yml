@@ -28,35 +28,27 @@ jobs:
     strategy:
       matrix:
         python-version: ${{ fromJSON(inputs.python-versions) }}
-  # lint:
-  #   name: Lint project (${{ matrix.folder }})
-  #   needs: setup
-  #   uses: ./.github/workflows/python-lint.yml
-  #   with:
-  #     python-version: ${{ inputs.main-python-version }}
-  #     folder: ${{ matrix.folder}}
-  #   strategy:
-  #     matrix:
-  #       folder:
-  #         - src
-  #         - tests
-  # test:
-  #   name: run tests
-  #   needs: setup
-  #   uses: ./.github/workflows/python-test-pytest.yml
-  #   with:
-  #     python-version: ${{ matrix.python-version }}
-  #   strategy:
-  #     matrix:
-  #       python-version: ${{ fromJSON(inputs.python-versions) }}
   lint:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Setup"
+    name: Lint project (${{ matrix.folder }})
+    needs: setup
+    uses: ./.github/workflows/python-lint.yml
+    with:
+      python-version: ${{ inputs.main-python-version }}
+      folder: ${{ matrix.folder}}
+    strategy:
+      matrix:
+        folder:
+          - src
+          - tests
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Setup"
+    name: run tests
+    needs: setup
+    uses: ./.github/workflows/python-test-pytest.yml
+    with:
+      python-version: ${{ matrix.python-version }}
+    strategy:
+      matrix:
+        python-version: ${{ fromJSON(inputs.python-versions) }}
   create-prod-version:
     name: Create production version
     needs:
@@ -99,7 +91,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}  # TODO: Make this the real branch
+          ref: ${{ github.ref }}
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
