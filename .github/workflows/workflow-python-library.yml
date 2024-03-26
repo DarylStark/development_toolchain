@@ -88,4 +88,8 @@ jobs:
           source .venv/bin/activate
           echo "PATH=$PATH" >> $GITHUB_ENV
           echo $PATH
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-action@github.com"
+          git config --global user.name "GitHub Actions"
       - run: bumpver update --tag final --no-fetch --tag-commit
