@@ -70,9 +70,7 @@ jobs:
   create-prod-version:
     name: Create production version
     needs:
-      - setup
-      - lint
-      - test
+      - sonarcloud
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
