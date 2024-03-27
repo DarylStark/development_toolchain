@@ -62,6 +62,8 @@ jobs:
         with:
           path: ./coverage.xml
           key: coverage_xml_${{ github.sha }}_${{ inputs.main-python-version }}
+      - name: test
+        run: ls -alF
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
