@@ -30,5 +30,10 @@ jobs:
           source .venv/bin/activate
           echo "PATH=$PATH" >> $GITHUB_ENV
           echo $PATH
+      - name: Cache for `coverage.xml`
+        uses: actions/cache@v4
+        with:
+          path: ./coverage.xml
+          key: coverage_xml_${{ github.sha }}_${{ inputs.python-version }}
       - name: Run `pytest`
         run: pytest

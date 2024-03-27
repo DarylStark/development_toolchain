@@ -57,6 +57,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Cache for `coverage.xml`
+        uses: actions/cache@v4
+        with:
+          path: ./coverage.xml
+          key: coverage_xml_${{ github.sha }}_${{ inputs.main-python-version }}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
