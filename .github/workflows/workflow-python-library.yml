@@ -13,6 +13,11 @@ on:
         description: 'The main Python version to use. This version is used for linting and deployment.'
         required: false
         default: '3.12'
+    secrets:
+      SONAR_TOKEN:
+        required: true
+      GITHUB_TOKEN:
+        required: true
 
 jobs:
   setup:
@@ -35,6 +40,18 @@ jobs:
         folder:
           - src
           - tests
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   test:
     name: run tests
     needs: setup
